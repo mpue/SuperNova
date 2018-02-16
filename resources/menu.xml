@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.lessvoid.com/nifty-gui">
+
+	<!-- +++++++++++++++++++++++++++++++++++++++ -->
+	<!-- load default styles and controls -->
+	<!-- +++++++++++++++++++++++++++++++++++++++ -->
+	<useStyles filename="nifty-default-styles.xml" />
+	<useControls filename="nifty-default-controls.xml" />
+
+	<style id="my" base="button-font">
+		<attributes font="menu.fnt" color="#f00f" />
+	</style>
+
+	<registerSound id="panel" filename="audio/blip.wav" />
+
+	<!-- +++++++++++++++++++++++++++++++++++++++ -->
+	<!-- start screen -->
+	<!-- +++++++++++++++++++++++++++++++++++++++ -->
+	<screen id="menu" controller="de.pueski.supernova.controller.SettingsController">
+		<layer id="layer" childLayout="center">
+			<panel id="dialog" style="nifty-panel" padding="18px,28px,28px,16px" childLayout="center" width="550px" height="38%" align="center" valign="center">
+				<effect>
+					<onStartScreen name="move" timeType="exp" factor="3.5" direction="top" mode="in" length="500" inherit="true" />
+					<onEndScreen name="move" timeType="exp" factor="3.5" direction="bottom" mode="out" length="500" inherit="true" />					
+				</effect>
+				<panel childLayout="vertical" align="center" valign="center">
+					<text style="nifty-label" text="Settings" width="150px" align="center" textVAlign="center" textHAlign="center" />
+					<panel childLayout="horizontal" height="8px" />
+					<panel childLayout="horizontal">
+						<text style="nifty-label" text="Music volume" width="150px" align="left" textVAlign="center" textHAlign="left" />
+						<control id="musicVolume" name="horizontalSlider" width="300px" min="-20" max="0" stepSize="0.2" buttonStepSize="0.5" />
+					</panel>
+					<panel childLayout="horizontal" height="8px" />
+					<panel childLayout="horizontal">
+						<text style="nifty-label" text="FX Volume" width="150px" align="left" textVAlign="center" textHAlign="left" />
+						<control id="fxVolume" name="horizontalSlider" width="300px" min="0" max="1" stepSize="0.01" buttonStepSize="0.1" />
+					</panel>
+					<panel childLayout="horizontal" height="8px" />
+					<panel childLayout="horizontal">
+						<text style="nifty-label" text="Sound enabled" width="150px" align="left" textVAlign="center" textHAlign="left" />
+						<control id="soundEnabled" name="checkbox" />
+					</panel>
+					<panel id="dynamic-parent" childLayout="vertical">
+					</panel>
+					<panel childLayout="horizontal" height="*" />
+					<panel childLayout="vertical" width="100%" visibleToMouse="true">
+						<control id="backButton" name="button" label="Ok" align="right">
+							<interact onClick="save()" />
+						</control>
+					</panel>
+				</panel>
+			</panel>
+		</layer>
+	</screen>
+	<screen id="mainMenu" controller="de.pueski.supernova.controller.MenuController">
+		<layer id="layer" childLayout="center">
+			<panel id="dialog" padding="50px,0px,0px,0px" childLayout="center" width="300px" height="200px" align="center" valign="bottom">
+				<effect>
+					<onStartScreen name="move" timeType="exp" factor="3.5" direction="top" mode="in" length="500" inherit="true" />
+					<onEndScreen name="move" timeType="exp" factor="3.5" direction="bottom" mode="out" length="500" inherit="true" />
+				</effect>
+
+				<panel childLayout="horizontal" width="100%" visibleToMouse="true" valign="top" align="center">
+					<image id="startButton" name="startButton" filename="images/ui/start_game.png" align="right">
+						<interact onClick="startGame()" />
+						<effect>
+							<onHover name="changeImage" active="images/ui/start_game_hover.png" inactive="images/ui/start_game.png" />
+						</effect>
+					</image>
+					<image id="settingsButton" name="settingsButton" filename="images/ui/game_settings.png" align="right">
+						<interact onClick="showSettings()" />
+						<effect>
+							<onHover name="changeImage" active="images/ui/game_settings_hover.png" inactive="images/ui/game_settings.png" />
+						</effect>
+					</image>
+					<image id="exitButton" name="exitButton" filename="images/ui/exit_game.png" align="right">
+						<interact onClick="exitGame()" />
+						<effect>
+							<onHover name="changeImage" active="images/ui/exit_game_hover.png" inactive="images/ui/exit_game.png" />
+						</effect>
+					</image>
+					
+					<!-- 
+					<control id="settingsButton" name="button" label="Settings" align="right">
+						<interact onClick="showSettings()" />
+					</control>
+					<control id="exitButton" name="button" label="Exit" align="right">
+						<interact onClick="exitGame()" />
+					</control>
+					 -->
+				</panel>
+
+			</panel>
+		</layer>
+	</screen>
+</nifty>

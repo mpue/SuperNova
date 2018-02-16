@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="lib" path="lib/AppleJavaExtensions.jar"/>
+	<classpathentry kind="lib" path="lib/jinput.jar"/>
+	<classpathentry kind="lib" path="lib/lwjgl_test.jar"/>
+	<classpathentry kind="lib" path="lib/lwjgl_util_applet.jar"/>
+	<classpathentry kind="lib" path="lib/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="lib/lwjgl-debug.jar" sourcepath="lib/lwjgl-source-2.7.1.zip"/>
+	<classpathentry kind="lib" path="lib/lwjgl.jar"/>
+	<classpathentry kind="lib" path="lib/PNGDecoder.jar"/>
+	<classpathentry kind="lib" path="lib/nifty-1.4.1.jar" sourcepath="C:/Users/mpue/.m2/repository/lessvoid/nifty/1.4.1/nifty-1.4.1-sources.jar"/>
+	<classpathentry kind="lib" path="lib/nifty-lwjgl-renderer-1.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/nifty-openal-soundsystem-1.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/eventbus-1.4.jar"/>
+	<classpathentry kind="lib" path="lib/xpp3-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="lib/nifty-default-controls-1.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/nifty-style-black-1.4.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="supernova/lib/native"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="lib/forms-1.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/slick-util.jar"/>
+	<classpathentry kind="lib" path="lib/slick.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

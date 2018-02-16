@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.lessvoid.com/nifty-gui">
+
+	<!-- +++++++++++++++++++++++++++++++++++++++ -->
+	<!-- load default styles and controls -->
+	<!-- +++++++++++++++++++++++++++++++++++++++ -->
+	<useStyles filename="nifty-default-styles.xml" />
+	<useControls filename="nifty-default-controls.xml" />
+
+	<style id="my" base="button-font">
+		<attributes font="menu.fnt" color="#f00f" />
+	</style>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++ -->
+	<!-- start screen -->
+	<!-- +++++++++++++++++++++++++++++++++++++++ -->
+	<screen id="main_menu" controller="de.pueski.supernova.SuperNovaController">
+		<layer id="layer" childLayout="center">
+			<panel childLayout="vertical" align="center" valign="center">
+				<panel childLayout="horizontal" height="*" />
+				<panel childLayout="vertical" width="100%" visibleToMouse="true">
+					<control id="backButton" name="button" label="Ok" align="right">
+						<interact onClick="save()" />
+					</control>
+				</panel>
+			</panel>		
+		</layer>
+	</screen>
+</nifty>
