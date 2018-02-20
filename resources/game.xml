@@ -3,7 +3,7 @@
 
 	<!-- The stage which will be used as a start point -->
 
-	<defaultStage>7</defaultStage>
+	<defaultStage>0</defaultStage>
 
 	<!-- Define all texture here, which should be preloaded by the game engine, if they are not defined here, the will be loaded at runtime when they are 
 		needed. All textures mentioned here will be loaded right after the launcher and will be considered in the loading progress bar. -->
@@ -12,6 +12,7 @@
 	<texture>images/ships/destroyer.png</texture>
 	<texture>images/ships/destroyer_shadow.png</texture>
 	<texture>images/ships/destroyer_glow.png</texture>
+	<texture>images/ships/destroyer_level_1.png</texture>
 	<texture>images/ships/F5S4_shadow.png</texture>
 	<texture>images/ships/F5S4_glow.png</texture>
 	<texture>images/ships/F5S4.png</texture>
@@ -50,7 +51,7 @@
 	<ship>
 		<xLoc>0.0</xLoc>
 		<yLoc>0.0</yLoc>
-		<width>173.0</width>
+		<width>291.0</width>
 		<height>291.0</height>
 		<!-- Size of the explosion texture -->
 		<explosionSize>25.0</explosionSize>
@@ -58,10 +59,12 @@
 		<scale>0.5</scale>
 		<energy>100</energy>
 		<ammo>1000</ammo>
-		<texture>images/ships/F5S4.png</texture>
-		<shadowTexture>images/ships/F5S4_shadow.png</shadowTexture>
-		<shieldTexture>images/ships/F5S4_glow.png</shieldTexture>
+		<texture>images/ships/destroyer.png</texture>
+		<shadowTexture>images/ships/destroyer_shadow.png</shadowTexture>
+		<shieldTexture>images/ships/destroyer_glow.png</shieldTexture>
 		<explosionTexture>images/explosions/explosion0.png</explosionTexture>
+		<level1Texture>images/ships/destroyer_level_1.png</level1Texture>
+		<level2Texture>images/ships/destroyer_level_2.png</level2Texture>
 	</ship>
 
 	<!-- Define additional ships here, which will be used later for ship selection and multiplayer -->
@@ -83,7 +86,7 @@
 	</ship>
 
 	<!-- Define the stages which are available to play -->
-
+	<!-- 
 	<stage>
 		<image>maps/neptune/neptune_30.png</image>
 		<image>maps/neptune/neptune_29.png</image>
@@ -279,6 +282,7 @@
 		<tileSize>800</tileSize>
 		<duration>60</duration>
 	</stage>
+	-->
 	<stage>
 		<image>maps/mars/mars_15.png</image>
 		<image>maps/mars/mars_14.png</image>
@@ -591,6 +595,7 @@
 		<tileSize>800</tileSize>
 		<duration>60</duration>
 	</stage>
+	<!--  
 	<stage>
 		<image>maps/venus/venus_30.png</image>
 		<image>maps/venus/venus_29.png</image>
@@ -670,5 +675,5 @@
 		<name>Sun</name>
 		<tileSize>800</tileSize>
 		<duration>60</duration>
-	</stage>
+	</stage>-->
 </game>

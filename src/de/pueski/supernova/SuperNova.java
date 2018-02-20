@@ -1,6 +1,42 @@
 package de.pueski.supernova;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_ALL_ATTRIB_BITS;
+import static org.lwjgl.opengl.GL11.GL_ALPHA_TEST;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_COMPILE;
+import static org.lwjgl.opengl.GL11.GL_CULL_FACE;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
+import static org.lwjgl.opengl.GL11.GL_LIGHTING;
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_NOTEQUAL;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.glAlphaFunc;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glCallList;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glColor3f;
+import static org.lwjgl.opengl.GL11.glColor4f;
+import static org.lwjgl.opengl.GL11.glDisable;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glEndList;
+import static org.lwjgl.opengl.GL11.glGenLists;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glNewList;
+import static org.lwjgl.opengl.GL11.glOrtho;
+import static org.lwjgl.opengl.GL11.glPopAttrib;
+import static org.lwjgl.opengl.GL11.glPopMatrix;
+import static org.lwjgl.opengl.GL11.glPushAttrib;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
+import static org.lwjgl.opengl.GL11.glScalef;
+import static org.lwjgl.opengl.GL11.glTranslatef;
+import static org.lwjgl.opengl.GL11.glViewport;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,6 +82,7 @@ import de.pueski.supernova.entities.IDrawable;
 import de.pueski.supernova.entities.IExplodable;
 import de.pueski.supernova.entities.IFadeable;
 import de.pueski.supernova.entities.IFadeable.Fade;
+import de.pueski.supernova.entities.LevelUp;
 import de.pueski.supernova.entities.Shield;
 import de.pueski.supernova.entities.Ship;
 import de.pueski.supernova.entities.StaticEnemy;
@@ -191,6 +228,7 @@ public class SuperNova {
 	private Text songName;
 	private Text pauseText;
 	private Text levelName;
+	private Text pickup;
 	private Text scoreText;
 	private Text scoreValueText;
 	private GLBarGraphDisplay loadingProgress;
@@ -505,12 +543,15 @@ public class SuperNova {
 		pauseText.setAlignment(Alignment.CENTER);
 		levelName = new Text(WIDTH / 2, displayMode.getHeight() / 2, currentStage.getName(), 80);
 		levelName.setAlignment(Alignment.CENTER);
+		pickup = new Text(WIDTH / 2, displayMode.getHeight() / 2, currentStage.getName(), 50);
+		pickup.setAlignment(Alignment.CENTER);
 
 		hud = new HUD(displayMode);
 
 		nowPlaying.setOpacity(0.0f);
 		songName.setOpacity(0.0f);
 		levelName.setOpacity(0.0f);
+		pickup.setOpacity(0.0f);
 		drawables.add(hud);
 
 	}
@@ -1195,6 +1236,9 @@ public class SuperNova {
 
 			if (entity.collides(ship)) {
 
+				pickup.setMode(Fade.IN);
+				pickup.setText(entity.getClass().getSimpleName());
+				fadeables.add(pickup);
 				it.remove();
 
 				if (entity instanceof Ammo) {
@@ -1218,6 +1262,15 @@ public class SuperNova {
 					Energy e = (Energy) entity;
 					ship.addEnergy(e);
 					hud.setEnergy(ship.getEnergy());
+					if (soundEnabled) {
+						if (!soundManager.isPlayingSound()) {
+							soundManager.playEffect(energySource);
+						}
+					}
+				}
+				else if (entity instanceof LevelUp) {
+					LevelUp e = (LevelUp) entity;
+					ship.increaseLevel();
 					if (soundEnabled) {
 						if (!soundManager.isPlayingSound()) {
 							soundManager.playEffect(energySource);
@@ -1418,6 +1471,9 @@ public class SuperNova {
 		if (game.getEnemiesShot() % 10 == 0 && game.getEnemiesShot() > 0) {
 			entities.add(new Shield(enemy.getXLoc(), enemy.getYLoc(), 0));
 		}
+		if (game.getEnemiesShot() % 15 == 0 && game.getEnemiesShot() > 0) {
+			entities.add(new LevelUp(enemy.getXLoc(), enemy.getYLoc(), 0));
+		}
 	}
 	
 	private void moveEnemies() {
@@ -1474,6 +1530,12 @@ public class SuperNova {
 					bullets.add(new Bullet(BulletColor.GREEN, shootX + -8, shootY + 10 + random.nextFloat(), Direction.UP));
 					bullets.add(new Bullet(BulletColor.GREEN, shootX + 43, shootY + random.nextFloat() - 20, Direction.UP));
 					bullets.add(new Bullet(BulletColor.GREEN, shootX + -43, shootY + random.nextFloat() - 20, Direction.UP));
+					
+					if (ship.getLevel() == 1) {
+						bullets.add(new Bullet(BulletColor.GREEN, shootX +  63, shootY + random.nextFloat() - 20, Direction.UP));
+						bullets.add(new Bullet(BulletColor.GREEN, shootX + -63, shootY + random.nextFloat() - 20, Direction.UP));
+					}
+					
 					lastShotTime = System.currentTimeMillis();
 					if (soundEnabled) {
 						if (!soundManager.isPlayingSound()) {
@@ -1845,6 +1907,7 @@ public class SuperNova {
 		}
 
 		levelName.draw();
+		pickup.draw();
 
 		for (IDrawable drawable : drawables) {
 			drawable.draw();

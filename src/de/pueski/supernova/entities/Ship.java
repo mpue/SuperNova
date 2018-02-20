@@ -12,7 +12,7 @@ import de.pueski.supernova.game.SoundManager;
 import de.pueski.supernova.game.TextureManager;
 import de.pueski.supernova.tools.TextureUtil;
 
-@XmlType(propOrder = {"energy","texture","shadowTexture","shieldTexture", "explosionTexture", "ammo"}, name="Ship")
+@XmlType(propOrder = {"energy","texture","level1Texture","level2Texture","shadowTexture","shieldTexture", "explosionTexture", "ammo"}, name="Ship")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso(Entity.class)
 public class Ship extends Entity implements IExplodable, IDrawable {
@@ -24,7 +24,10 @@ public class Ship extends Entity implements IExplodable, IDrawable {
 	
 	@XmlTransient
 	private boolean shielded = false;
-	
+	@XmlTransient
+	private int level1TexId;
+	@XmlTransient
+	private int level2TexId;
 	@XmlTransient
 	private int texId;
 	@XmlTransient
@@ -53,12 +56,18 @@ public class Ship extends Entity implements IExplodable, IDrawable {
 	private int shootSound;
 	@XmlTransient
 	private int explosionSource;
+	@XmlTransient
+	private int level = 0;
+
 
 	private String texture;	
+	
 	private String shadowTexture;	
 	private String shieldTexture;	
 	private String explosionTexture;
-	
+	private String level1Texture;
+	private String level2Texture;
+
 	private int ammo = MAX_AMMO;
 
 	private enum Fade {
@@ -75,17 +84,20 @@ public class Ship extends Entity implements IExplodable, IDrawable {
 		ship.xLoc = xLoc;
 		ship.yLoc = yLoc;
 		ship.energy = 100;				
-		ship.texId = TextureManager.getInstance().addTexture(texture);						
+		ship.texId = TextureManager.getInstance().addTexture(texture);		
+		ship.level1TexId = TextureManager.getInstance().addTexture(level1Texture);
+		ship.level2TexId = TextureManager.getInstance().addTexture(level2Texture);	
 		ship.shadowTexId = TextureManager.getInstance().addTexture(shadowTexture);
 		ship.shieldTexId = TextureManager.getInstance().addTexture(shieldTexture);		
 		ship.explosionTexId = TextureManager.getInstance().addTexture(explosionTexture);
-		ship.visible = true;
 		ship.explosionSize = explosionSize;
 		ship.shootSound = SoundManager.getInstance().getSound("audio/laser.wav");
 		ship.explosionSource = SoundManager.getInstance().getSound("audio/explosion2.wav");
 		ship.height = height;
 		ship.width = width;
+		ship.visible = true;
 		ship.scale = scale;
+		ship.level = level;
 		return ship;		
 	}
 	
@@ -187,7 +199,22 @@ public class Ship extends Entity implements IExplodable, IDrawable {
 		
 		TextureUtil.drawTexture(0f, xLoc, yLoc, width * scale, height * scale, shieldTexId);
 		
+		
 		// ship
+		
+		switch(level) {
+		 
+			case 1:
+				GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+				TextureUtil.drawTexture(0f, xLoc, yLoc, width * scale, height * scale, level1TexId);
+			case 2:
+				GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+				TextureUtil.drawTexture(0f, xLoc, yLoc, width * scale, height * scale, level2TexId);
+				break;
+			default: 
+				break;
+		
+		}
 		
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 		
@@ -283,6 +310,26 @@ public class Ship extends Entity implements IExplodable, IDrawable {
 
 	public void setExplosionTexture(String explosionTexture) {
 		this.explosionTexture = explosionTexture;
+	}
+	
+	public String getLevel1Texture() {
+		return level1Texture;
+	}
+	
+	public void setLevel1Texture(String level1Texture) {
+		this.level1Texture = level1Texture;
+	}
+	
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
+
+	public void increaseLevel() {
+		level++;
 	}
 	
 }
