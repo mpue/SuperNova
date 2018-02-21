@@ -950,6 +950,7 @@ public class SuperNova {
 
 		int enemyClass = random.nextInt(currentStage.getEnemies().size());
 		
+		
 		switch (game.getSequence()) {
 			case 0:
 				// totally random
@@ -965,7 +966,8 @@ public class SuperNova {
 
 						enemy.setXLoc(WIDTH * f);
 						enemy.setYLoc(displayMode.getHeight());
-
+						enemy.setCurrentStrategy(new Random().nextInt(enemy.getStrategies().size()));
+						
 						if (enemy.getShotInterval() == 0) {
 							long t = random.nextInt(500);
 							enemy.setShotInterval(500 + t);
@@ -982,6 +984,9 @@ public class SuperNova {
 			case 1:
 				// one line horizontal
 				if (System.currentTimeMillis() - lastEnemyTime > 4000 && System.currentTimeMillis() - startTime > 2) {
+					
+					int strategy = new Random().nextInt(Enemy.MAX_STRATEGIES);
+					
 					for (int i = 1; i < 6; i++) {
 
 						Enemy enemy;
@@ -994,6 +999,8 @@ public class SuperNova {
 
 							enemy.setXLoc(i * 100);
 							enemy.setYLoc(displayMode.getHeight());
+							enemy.setCurrentStrategy(strategy);
+							
 							if (enemy.getShotInterval() == 0) {
 								long t = random.nextInt(500);
 								enemy.setShotInterval(500 + t);
@@ -1011,6 +1018,9 @@ public class SuperNova {
 			case 2:
 				// one line 45 degrees
 				if (System.currentTimeMillis() - lastEnemyTime > 4000 && System.currentTimeMillis() - startTime > 2) {
+					
+					int strategy = new Random().nextInt(Enemy.MAX_STRATEGIES);
+					
 					for (int i = 1; i < 6; i++) {
 						Enemy enemy;
 						try {
@@ -1022,6 +1032,8 @@ public class SuperNova {
 
 							enemy.setXLoc(i * 100);
 							enemy.setYLoc(displayMode.getHeight() + i * 50);
+							enemy.setCurrentStrategy(strategy);
+							
 							if (enemy.getShotInterval() == 0) {
 								long t = random.nextInt(500);
 								enemy.setShotInterval(500 + t);
@@ -1531,10 +1543,15 @@ public class SuperNova {
 					bullets.add(new Bullet(BulletColor.GREEN, shootX + 43, shootY + random.nextFloat() - 20, Direction.UP));
 					bullets.add(new Bullet(BulletColor.GREEN, shootX + -43, shootY + random.nextFloat() - 20, Direction.UP));
 					
-					if (ship.getLevel() == 1) {
+					if (ship.getLevel() >= 1) {
 						bullets.add(new Bullet(BulletColor.GREEN, shootX +  63, shootY + random.nextFloat() - 20, Direction.UP));
 						bullets.add(new Bullet(BulletColor.GREEN, shootX + -63, shootY + random.nextFloat() - 20, Direction.UP));
 					}
+					if (ship.getLevel() >= 2) {
+						bullets.add(new Bullet(BulletColor.GREEN, shootX +  83, shootY + random.nextFloat() - 20, Direction.UP));
+						bullets.add(new Bullet(BulletColor.GREEN, shootX + -83, shootY + random.nextFloat() - 20, Direction.UP));
+					}
+					
 					
 					lastShotTime = System.currentTimeMillis();
 					if (soundEnabled) {

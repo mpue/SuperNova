@@ -2,6 +2,7 @@ package de.pueski.supernova.entities;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -14,6 +15,9 @@ import org.lwjgl.opengl.GL11;
 
 import de.pueski.supernova.SuperNova;
 import de.pueski.supernova.entities.Bullet.BulletColor;
+import de.pueski.supernova.entities.strategies.AbstractStrategy;
+import de.pueski.supernova.entities.strategies.MoveForward;
+import de.pueski.supernova.entities.strategies.Oscillate;
 import de.pueski.supernova.game.SoundManager;
 import de.pueski.supernova.game.TextureManager;
 import de.pueski.supernova.tools.TextureUtil;
@@ -55,9 +59,6 @@ public class Enemy extends Entity implements IExplodable {
 	protected float rot = 0.0f;
 	
 	@XmlTransient
-	protected float angle = 0.0f;
-
-	@XmlTransient
 	protected int explosionTexId;
 
 	@XmlTransient
@@ -93,7 +94,19 @@ public class Enemy extends Entity implements IExplodable {
 	@XmlTransient
 	protected long hitTime;
 	
+	@XmlTransient
+	private List<AbstractStrategy> strategies;
+	
+	@XmlTransient
+	private int currentStrategy = 0;
+	
+	@XmlTransient
+	public static final int MAX_STRATEGIES = 2;
+	
 	public Enemy() {
+		strategies = new ArrayList<>();
+		strategies.add(new Oscillate(this));
+		strategies.add(new MoveForward(this));
 	}
 	
 	@Override
@@ -120,6 +133,7 @@ public class Enemy extends Entity implements IExplodable {
 		enemy.impactSize = impactSize;
 		enemy.drawImpacts = drawImpacts;
 		enemy.hitTime = System.currentTimeMillis();
+		
 		return enemy;		
 	}
 	
@@ -169,9 +183,7 @@ public class Enemy extends Entity implements IExplodable {
 	}
 
 	public void fly() {
-		yLoc -= speed;		
-		xLoc += (2 * Math.sin(Math.toRadians(angle)));
-		angle += 2.0f;
+		this.strategies.get(this.currentStrategy).fly();
 	}
 
 	public void draw() {
@@ -319,4 +331,19 @@ public class Enemy extends Entity implements IExplodable {
 		this.impactSize = impactSize;
 	}	
 	
+	public List<AbstractStrategy> getStrategies() {
+		return strategies;
+	}
+
+	public void setStrategies(List<AbstractStrategy> strategies) {
+		this.strategies = strategies;
+	}
+
+	public int getCurrentStrategy() {
+		return currentStrategy;
+	}
+
+	public void setCurrentStrategy(int currentStrategy) {
+		this.currentStrategy = currentStrategy;
+	}
 }

@@ -54,9 +54,10 @@ public class Boss extends Enemy implements IExplodable {
 	@Override
 	public void fly() {		
 		if (yLoc > Display.getHeight() - height / 2 )		
-			yLoc -= speed;		
-		xLoc += (2 * Math.sin(Math.toRadians(angle)));
-		angle += 2.0f;
+			yLoc -= speed;	
+		
+		super.fly();
+
 	}
 	
 	@Override

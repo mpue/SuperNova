@@ -58,8 +58,10 @@ public class Ship extends Entity implements IExplodable, IDrawable {
 	private int explosionSource;
 	@XmlTransient
 	private int level = 0;
-
-
+	@XmlTransient
+	private static final int MAXLEVEL = 2;
+	
+	
 	private String texture;	
 	
 	private String shadowTexture;	
@@ -329,7 +331,8 @@ public class Ship extends Entity implements IExplodable, IDrawable {
 	}
 
 	public void increaseLevel() {
-		level++;
+		if (level < MAXLEVEL)
+			level++;
 	}
 	
 }
