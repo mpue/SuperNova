@@ -56,7 +56,7 @@ public class Boss extends Enemy implements IExplodable {
 		if (yLoc > Display.getHeight() - height / 2 )		
 			yLoc -= speed;	
 		
-		super.fly();
+		// super.fly();
 
 	}
 	

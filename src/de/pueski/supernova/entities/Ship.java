@@ -59,7 +59,7 @@ public class Ship extends Entity implements IExplodable, IDrawable {
 	@XmlTransient
 	private int level = 0;
 	@XmlTransient
-	private static final int MAXLEVEL = 2;
+	private static final int MAXLEVEL = 3;
 	
 	
 	private String texture;	
@@ -204,18 +204,13 @@ public class Ship extends Entity implements IExplodable, IDrawable {
 		
 		// ship
 		
-		switch(level) {
-		 
-			case 1:
-				GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-				TextureUtil.drawTexture(0f, xLoc, yLoc, width * scale, height * scale, level1TexId);
-			case 2:
-				GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-				TextureUtil.drawTexture(0f, xLoc, yLoc, width * scale, height * scale, level2TexId);
-				break;
-			default: 
-				break;
-		
+		if (level >= 2) {
+			GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			TextureUtil.drawTexture(0f, xLoc, yLoc, width * scale, height * scale, level2TexId);			
+		}
+		if (level >= 1) {
+			GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+			TextureUtil.drawTexture(0f, xLoc, yLoc, width * scale, height * scale, level1TexId);			
 		}
 		
 		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
@@ -321,6 +316,15 @@ public class Ship extends Entity implements IExplodable, IDrawable {
 	public void setLevel1Texture(String level1Texture) {
 		this.level1Texture = level1Texture;
 	}
+	
+	public String getLevel2Texture() {
+		return level2Texture;
+	}
+	
+	public void setLevel2Texture(String level2Texture) {
+		this.level2Texture = level2Texture;
+	}
+	
 	
 	public int getLevel() {
 		return level;

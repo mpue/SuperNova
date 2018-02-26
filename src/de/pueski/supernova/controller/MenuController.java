@@ -29,7 +29,10 @@ public class MenuController implements ScreenController{
 	}
 
 	public void startGame() {
-		SuperNova.getInstance().startGame();
+		SuperNova.getInstance().setMenuIsShowing(true);
+		nifty.gotoScreen("levelSelect");
+		
+		// SuperNova.getInstance().startGame();
 	}
 	
 	public void showSettings() {

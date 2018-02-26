@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nifty xmlns="http://nifty-gui.lessvoid.com/nifty-gui">
+
+	<!-- +++++++++++++++++++++++++++++++++++++++ -->
+	<!-- load default styles and controls -->
+	<!-- +++++++++++++++++++++++++++++++++++++++ -->
+	<useStyles filename="nifty-default-styles.xml" />
+	<useControls filename="nifty-default-controls.xml" />
+
+	<style id="my" base="button-font">
+		<attributes font="menu.fnt" color="#f00f" />
+	</style>
+
+	<registerSound id="panel" filename="audio/blip.wav" />
+	<screen id="mainMenu" controller="de.pueski.supernova.controller.LevelSelectController">
+		<layer id="layer" childLayout="center">
+			<panel id="dialog" padding="50px,0px,0px,0px" childLayout="center" width="300px" height="200px" align="center" valign="top">
+				<effect>
+					<onStartScreen name="move" timeType="exp" factor="3.5" direction="top" mode="in" length="500" inherit="true" />
+					<onEndScreen name="move" timeType="exp" factor="3.5" direction="bottom" mode="out" length="500" inherit="true" />
+				</effect>
+
+				<panel childLayout="horizontal" width="100%" visibleToMouse="true" valign="top" align="center">
+					<image id="earthButton" name="earthButton" filename="images/ui/menu/Earth.png" align="left" width="256px" height="256px">
+						<interact onClick="startGame()" />
+					</image>
+					<image id="marsButton" name="marsButton" filename="images/ui/menu/Mars.png" align="center" width="256px" height="256">
+						<interact onClick="startGame()" />
+					</image>
+					<image id="moonButton" name="moonButton" filename="images/ui/menu/Moon.png" align="right" width="256" height="256">
+						<interact onClick="startGame()" />
+					</image>					
+					
+				</panel>
+
+			</panel>
+		</layer>
+	</screen>
+</nifty>

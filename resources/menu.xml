@@ -93,4 +93,34 @@
 			</panel>
 		</layer>
 	</screen>
+	<screen id="levelSelect" controller="de.pueski.supernova.controller.LevelSelectController">
+		<layer id="layer" childLayout="center">
+			<panel id="dialog" padding="50px,0px,0px,0px" childLayout="center" width="500px" height="200px" align="center" valign="top">
+				<effect>
+					<onStartScreen name="move" timeType="exp" factor="3.5" direction="top" mode="in" length="500" inherit="true" />
+					<onEndScreen name="move" timeType="exp" factor="3.5" direction="bottom" mode="out" length="500" inherit="true" />
+				</effect>
+				
+				<panel childLayout="vertical" width="500px" height="200px">
+				
+					<text style="nifty-label" text="Choose your planet" width="250px" align="center" textVAlign="top" textHAlign="center" />
+	
+					<panel padding="50px,50px,50px,50px" childLayout="horizontal" width="100%" visibleToMouse="true" valign="center" align="center">
+						<image id="earthButton" name="earthButton" filename="images/ui/menu/Earth.png" align="left" height="128px" width="128px">
+							<interact onClick="startGame()" />
+						</image>
+						<image id="marsButton" name="marsButton" filename="images/ui/menu/Mars.png" align="center" height="128px" width="128px">
+							<interact onClick="startGame()" />
+						</image>
+						<image id="moonButton" name="moonButton" filename="images/ui/menu/Moon.png" align="right" height="128px" width="128px">
+							<interact onClick="startGame()" />
+						</image>					
+						
+					</panel>
+				</panel>
+
+			</panel>
+		</layer>
+	</screen>	
+	
 </nifty>

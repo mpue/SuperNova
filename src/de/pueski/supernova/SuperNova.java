@@ -62,6 +62,8 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
+import com.eclipsesource.v8.V8;
+
 import de.lessvoid.nifty.Nifty;
 import de.lessvoid.nifty.input.keyboard.KeyboardInputEvent;
 import de.lessvoid.nifty.renderer.lwjgl.input.LwjglInputSystem;
@@ -114,6 +116,8 @@ public class SuperNova {
 		return INSTANCE;
 	}
 
+	private V8 runtime;
+	
 	///////////////////////////////////////////////////////////////////////
 	// Constants
 	///////////////////////////////////////////////////////////////////////
@@ -265,6 +269,9 @@ public class SuperNova {
 	///////////////////////////////////////////////////////////////////////
 
 	private SuperNova() {
+		
+		runtime = V8.createV8Runtime();
+		
 		try {
 			unmarshaller = (Unmarshaller) JAXBContext.newInstance(Game.class).createUnmarshaller();
 		}
@@ -1079,6 +1086,10 @@ public class SuperNova {
 			}
 
 		}
+		
+		if (Keyboard.isKeyDown(Keyboard.KEY_L)) {
+			ship.increaseLevel();			
+		}
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 			Keyboard.enableRepeatEvents(false);
@@ -1758,8 +1769,10 @@ public class SuperNova {
 		TextureUtil.drawTexture(0, 400, starfieldYOffset + 1200, 400, starfieldTexId);
 		TextureUtil.drawTexture(0, 400, starfieldYOffset + 400, 400, starfieldTexId);
 		TextureUtil.drawTexture(0, 400, starfieldYOffset - 400, 400, starfieldTexId);
-		TextureUtil.drawTexture(novaRot, 400, displayMode.getHeight() / 2, 400, imgTexId);
-		TextureUtil.drawTexture(0, 400, displayMode.getHeight() / 2, 400, logoTexId);
+		if (!isMenuIsShowing()) {
+			TextureUtil.drawTexture(novaRot, 400, displayMode.getHeight() / 2, 400, imgTexId);
+			TextureUtil.drawTexture(0, 400, displayMode.getHeight() / 2, 400, logoTexId);
+		}	
 		glDisable(GL_TEXTURE_2D);
 
 		// glPushMatrix();
