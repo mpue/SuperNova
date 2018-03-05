@@ -116,7 +116,7 @@ public class SuperNova {
 		return INSTANCE;
 	}
 
-	private V8 runtime;
+	private final V8 runtime;
 	
 	///////////////////////////////////////////////////////////////////////
 	// Constants
@@ -215,6 +215,7 @@ public class SuperNova {
 	// Sound sources
 	///////////////////////////////////////////////////////////////////////
 
+	private int levelupSource;
 	private int energySource;
 	private int reloadSource;
 	private int shieldSource;
@@ -263,6 +264,7 @@ public class SuperNova {
 	private float musicVolume;
 	private float novaRot = 0.0f;
 	private float fxvolume;
+
 
 	///////////////////////////////////////////////////////////////////////	
 	// Implementation
@@ -512,7 +514,9 @@ public class SuperNova {
 		}
 
 		// TODO : We should move that to game.xml too
-		energySource = soundManager.getSound("audio/energy2.wav");
+
+		energySource = soundManager.getSound("audio/energy.wav");
+		levelupSource = soundManager.getSound("audio/levelup.wav");
 		reloadSource = soundManager.getSound("audio/reload.wav");
 		shieldSource = soundManager.getSound("audio/shield.wav");
 		gameOverSource = soundManager.getSound("audio/gameover.wav");
@@ -1296,7 +1300,8 @@ public class SuperNova {
 					ship.increaseLevel();
 					if (soundEnabled) {
 						if (!soundManager.isPlayingSound()) {
-							soundManager.playEffect(energySource);
+							soundManager.playEffect(levelupSource);
+									energySource = soundManager.getSound("audio/energy.wav");
 						}
 					}
 				}
@@ -2006,5 +2011,9 @@ public class SuperNova {
 
 	public void setSoundEnabled(boolean soundEnabled) {
 		this.soundEnabled = soundEnabled;
+	}
+
+	public V8 getRuntime() {
+		return runtime;
 	}
 }

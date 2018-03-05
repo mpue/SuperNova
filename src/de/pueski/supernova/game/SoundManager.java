@@ -93,7 +93,8 @@ public class SoundManager {
 		addSound("audio/laser.wav");
 		addSound("audio/explosion.wav");
 		addSound("audio/explosion2.wav");
-		addSound("audio/energy2.wav");
+		addSound("audio/energy.wav");
+		addSound("audio/levelup.wav");
 		addSound("audio/energy_low.wav");
 		addSound("audio/reload.wav");
 		addSound("audio/shield.wav");
