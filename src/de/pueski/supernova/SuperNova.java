@@ -116,7 +116,7 @@ public class SuperNova {
 		return INSTANCE;
 	}
 
-	private final V8 runtime;
+	//private final V8 runtime;
 	
 	///////////////////////////////////////////////////////////////////////
 	// Constants
@@ -272,7 +272,7 @@ public class SuperNova {
 
 	private SuperNova() {
 		
-		runtime = V8.createV8Runtime();
+		//runtime = V8.createV8Runtime();
 		
 		try {
 			unmarshaller = (Unmarshaller) JAXBContext.newInstance(Game.class).createUnmarshaller();
@@ -2012,8 +2012,9 @@ public class SuperNova {
 	public void setSoundEnabled(boolean soundEnabled) {
 		this.soundEnabled = soundEnabled;
 	}
-
+	/*
 	public V8 getRuntime() {
 		return runtime;
 	}
+	*/
 }
