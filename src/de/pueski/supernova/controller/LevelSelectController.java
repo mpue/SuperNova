@@ -31,5 +31,10 @@ public class LevelSelectController implements ScreenController{
 	public void startGame() {
 		SuperNova.getInstance().startGame();
 	}
+	
+	public void backToMain() {
+		nifty.gotoScreen("mainMenu");
+		SuperNova.getInstance().setMenuIsShowing(false);
+	}
 
 }

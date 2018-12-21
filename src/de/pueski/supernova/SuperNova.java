@@ -519,7 +519,7 @@ public class SuperNova {
 		levelupSource = soundManager.getSound("audio/levelup.wav");
 		reloadSource = soundManager.getSound("audio/reload.wav");
 		shieldSource = soundManager.getSound("audio/shield.wav");
-		gameOverSource = soundManager.getSound("audio/gameover.wav");
+		gameOverSource = soundManager.getSound("audio/game_over.wav");
 		shipHitSource = soundManager.getSound("audio/hit.wav");
 		impactSound = soundManager.getSound("audio/cinematic_impact.wav");
 
@@ -2017,4 +2017,9 @@ public class SuperNova {
 		return runtime;
 	}
 	*/
+
+	public void showMainMenu() {
+		SuperNova.getInstance().setFinished(true);
+		this.gameState = GameState.MENU;
+	}
 }

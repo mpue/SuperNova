@@ -95,10 +95,10 @@ public class SoundManager {
 		addSound("audio/explosion2.wav");
 		addSound("audio/energy.wav");
 		addSound("audio/levelup.wav");
-		addSound("audio/energy_low.wav");
+		addSound("audio/lowenergy.wav");
 		addSound("audio/reload.wav");
 		addSound("audio/shield.wav");
-		addSound("audio/gameover.wav");
+		addSound("audio/game_over.wav");
 		addSound("audio/laser.wav");
 		addSound("audio/hit.wav");
 		addSound("audio/click.wav");

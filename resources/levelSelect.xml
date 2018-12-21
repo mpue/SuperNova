@@ -14,7 +14,7 @@
 	<registerSound id="panel" filename="audio/blip.wav" />
 	<screen id="mainMenu" controller="de.pueski.supernova.controller.LevelSelectController">
 		<layer id="layer" childLayout="center">
-			<panel id="dialog" padding="50px,0px,0px,0px" childLayout="center" width="300px" height="200px" align="center" valign="top">
+			<panel id="dialog" padding="50px,0px,0px,0px" childLayout="center" width="300px" height="800px" align="center" valign="top">
 				<effect>
 					<onStartScreen name="move" timeType="exp" factor="3.5" direction="top" mode="in" length="500" inherit="true" />
 					<onEndScreen name="move" timeType="exp" factor="3.5" direction="bottom" mode="out" length="500" inherit="true" />
@@ -33,6 +33,14 @@
 					
 				</panel>
 
+				<panel childLayout="horizontal" width="100%" visibleToMouse="true" valign="top" align="center">
+					<image id="exitButton" name="exitButton" filename="images/ui/exit_game.png" align="right">
+						<interact onClick="backToMain()" />
+						<effect>
+							<onHover name="changeImage" active="images/ui/exit_game_hover.png" inactive="images/ui/exit_game.png" />
+						</effect>
+					</image>
+				</panel>
 			</panel>
 		</layer>
 	</screen>
